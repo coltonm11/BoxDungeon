@@ -3,40 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoxInventory : MonoBehaviour
+public class BoxInventory : Inventory
 {
 
-    public GameObject boxInventoryModal;
-    public GameObject ModalSpriteObject;
-    Sprite modalSprite;
-    SpriteRenderer modalSpriteRenderer;
-    Image modalImage; 
+    public GameObject lootModalObject;
+    LootModal lootModal;
 
-    public Item[] boxInventory;
+    public List<Item> boxInventory = new List<Item>();
 
-    int itemNumber;
+    int currentItemNumber;
+
 
     private void Start()
     {
-        modalSprite = ModalSpriteObject.GetComponent<Sprite>();
-        modalSpriteRenderer = ModalSpriteObject.GetComponent<SpriteRenderer>();
-        modalImage = ModalSpriteObject.GetComponent<Image>();
-        itemNumber = 0;
+        lootModal = lootModalObject.GetComponent<LootModal>();
+        currentItemNumber = 0;
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        boxInventoryModal.SetActive(true);
-        CycleInventory();
+        if (Input.GetMouseButtonDown(1))
+        {
+            CycleInventory();
+            lootModal.Open();
+            print("BoxInv mouse down recieved");
+        }
     }
+
 
     private void CycleInventory()
     {
-        //modalSprite = boxInventory[itemNumber].GetSprite();
-        //modalSpriteRenderer.sprite = boxInventory[itemNumber].GetSprite();
-        modalImage.sprite = boxInventory[itemNumber].GetSprite();
-        itemNumber += 1;
-        print("cycled inventory");
+        if (currentItemNumber >= boxInventory.Count)
+            currentItemNumber = 0;
+
+        print("BoxInv CycleInventory");
+        lootModal.ShowItem(this, boxInventory[currentItemNumber]);
+        currentItemNumber += 1;     
+    }
+
+    public void RemoveItem()
+    {
+        print("BoxInv RemoveItem");
+        currentItemNumber -= 1;
+        boxInventory.RemoveAt(currentItemNumber);
+
+        if (boxInventory.Count < 1)
+        {
+            lootModal.Close();
+        }
+
+        CycleInventory();
     }
 
 }
