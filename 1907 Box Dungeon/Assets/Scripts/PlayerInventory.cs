@@ -20,16 +20,38 @@ public class PlayerInventory : MonoBehaviour
     {
         if (inventory.Count < 10)
         {
-            print("{ PINV } add to inventory");
-            inventory.Add(item);
-            UpdateInventory();
+            if (!CheckForDuplicates(item))
+            {
+                inventory.Add(item);
+                UpdateInventory();
+            }
         }
         else if (inventory.Count >= 10)
         {
             inventoryFull = true;
-            print("inventory full");
+        }
+    }
+
+    private bool CheckForDuplicates(Item item)
+    {
+        print("CheckForDupes");
+        bool b = false;
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (item.itemName == inventory[i].itemName)
+            {
+                if (inventory[i].quantity < inventory[i].maxStackSize)
+                {
+                    inventory[i].quantity += 1;
+                    i = inventory.Count;
+                    b = true;
+                }
+            }
+
         }
 
+        return b;
     }
 
     void UpdateInventory()

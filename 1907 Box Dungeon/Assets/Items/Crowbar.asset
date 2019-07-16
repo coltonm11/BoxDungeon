@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103ae8df2f8fcfa498b630986916976c, type: 3}
   m_Name: Crowbar
   m_EditorClassIdentifier: 
+  itemName: Crowbar
+  maxStackSize: 1
+  quantity: 1
   sprite: {fileID: 21300000, guid: 56bf60ecf6b2e8e44b0a82271d35d65a, type: 3}
