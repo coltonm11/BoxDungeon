@@ -11,6 +11,10 @@ public class Item : ScriptableObject
     public int quantity;
     public Sprite sprite;
 
+    private void Awake()
+    {
+        quantity = 1;
+    }
 
 
     public Sprite GetSprite()

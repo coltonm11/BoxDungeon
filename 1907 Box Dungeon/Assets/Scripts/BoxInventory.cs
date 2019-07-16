@@ -7,6 +7,8 @@ public class BoxInventory : Inventory
 {
 
     public GameObject lootModalObject;
+    public Item collapsedBox;
+    public GameObject ItemObjectPrefab;
     LootModal lootModal;
 
     public List<Item> boxInventory = new List<Item>();
@@ -24,9 +26,11 @@ public class BoxInventory : Inventory
     {
         if (Input.GetMouseButtonDown(1))
         {
-            CycleInventory();
-            lootModal.Open();
-            print("BoxInv mouse down recieved");
+            if (boxInventory.Count > 0)
+            {
+                CycleInventory();
+                lootModal.Open();
+            }
         }
     }
 
@@ -48,11 +52,16 @@ public class BoxInventory : Inventory
         boxInventory.RemoveAt(currentItemNumber);
 
         if (boxInventory.Count < 1)
-        {
-            lootModal.Close();
-        }
+            lootModal.MakeCollapsable();
 
         CycleInventory();
+    }
+
+    public void CollapseBox()
+    {
+        GameObject newObj = Instantiate(ItemObjectPrefab, this.transform.position, this.transform.rotation);
+        newObj.GetComponent<ItemObject>().SetUpObject(collapsedBox);
+        Destroy(this.transform.gameObject);
     }
 
 }

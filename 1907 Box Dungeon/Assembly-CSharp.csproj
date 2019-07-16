@@ -60,13 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BoxInventory.cs" />
-    <Compile Include="Assets\HotbarSlot.cs" />
-    <Compile Include="Assets\Inventory.cs" />
-    <Compile Include="Assets\Item.cs" />
-    <Compile Include="Assets\LootModal.cs" />
-    <Compile Include="Assets\PlayerInventory.cs" />
-    <Compile Include="Assets\PlayerMovement.cs" />
+    <Compile Include="Assets\ItemObject.cs" />
+    <Compile Include="Assets\Scripts\BoxInventory.cs" />
+    <Compile Include="Assets\Scripts\HotbarSlot.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\LootModal.cs" />
+    <Compile Include="Assets\Scripts\PlayerInventory.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Colton/Documents/BoxDungeon/1907 Box Dungeon/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

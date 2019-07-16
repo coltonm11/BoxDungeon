@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class LootModal : MonoBehaviour
+public class LootModal : MonoBehaviour, IPointerClickHandler
 {
     public PlayerInventory playerInventory;
     BoxInventory activeContainer;
     Item currentItem;
     public GameObject spriteObject;
     public GameObject menuObject;
+    public GameObject CollapseButtonObject;
 
 
-    private void OnMouseOver()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (Input.GetMouseButtonDown(1))
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            AddToInventory();
+            if (activeContainer.boxInventory.Count > 0)
+                AddToInventory();
         }
     }
 
@@ -24,6 +28,9 @@ public class LootModal : MonoBehaviour
     {
         menuObject.SetActive(true);
         MoveModal();
+
+        if (activeContainer.boxInventory.Count > 0)
+            CollapseButtonObject.SetActive(false);
     }
 
     public void Close()
@@ -33,7 +40,8 @@ public class LootModal : MonoBehaviour
 
     private void MoveModal()
     {
-        this.transform.position = activeContainer.transform.position;
+        Vector3 containerPos = activeContainer.transform.position;
+        this.transform.position = Camera.main.WorldToScreenPoint(containerPos);
     }
 
     public void ShowItem(BoxInventory inv, Item item)
@@ -41,7 +49,7 @@ public class LootModal : MonoBehaviour
         print("LootModal - ShowItem");
         activeContainer = inv;
         currentItem = item;
-        spriteObject.GetComponent<SpriteRenderer>().sprite = item.GetSprite();
+        spriteObject.GetComponent<Image>().sprite = item.GetSprite();
     }
 
     private void AddToInventory()
@@ -53,4 +61,16 @@ public class LootModal : MonoBehaviour
             activeContainer.RemoveItem();
         }
     }
+
+    public void MakeCollapsable()
+    {
+        CollapseButtonObject.SetActive(true);
+    }
+
+    public void CollapseContainer()
+    {
+        activeContainer.CollapseBox();
+        Close();
+    }
+
 }
