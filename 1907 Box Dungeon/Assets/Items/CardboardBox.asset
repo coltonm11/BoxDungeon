@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: CardboardBox
   maxStackSize: 5
   quantity: 1
-  sprite: {fileID: 21300000, guid: 8601a03704668344c80d7bb304916105, type: 3}
+  sprite: {fileID: 21300000, guid: cbb129c880fad814d856c1b1ee70b5c2, type: 3}

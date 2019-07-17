@@ -46,7 +46,7 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
 
     public void ShowItem(BoxInventory inv, Item item)
     {
-        print("LootModal - ShowItem");
+        print("LootModal - ShowItem: " + item);
         activeContainer = inv;
         currentItem = item;
         spriteObject.GetComponent<Image>().sprite = item.GetSprite();

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Crowbar
   maxStackSize: 1
   quantity: 1
-  sprite: {fileID: 21300000, guid: 56bf60ecf6b2e8e44b0a82271d35d65a, type: 3}
+  sprite: {fileID: 21300000, guid: 3c1945fb9addb0542ae15aad07b6654d, type: 3}

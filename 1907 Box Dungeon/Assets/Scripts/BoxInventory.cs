@@ -40,7 +40,7 @@ public class BoxInventory : Inventory
         if (currentItemNumber >= boxInventory.Count)
             currentItemNumber = 0;
 
-        print("BoxInv CycleInventory");
+        print("BoxInv CycleInventory: " + currentItemNumber);
         lootModal.ShowItem(this, boxInventory[currentItemNumber]);
         currentItemNumber += 1;     
     }
