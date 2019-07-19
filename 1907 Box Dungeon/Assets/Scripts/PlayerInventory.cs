@@ -7,6 +7,8 @@ public class PlayerInventory : MonoBehaviour
 {
     public bool inventoryFull;
 
+    public Item empty;
+
     public List<Item> inventory = new List<Item>();
 
     public GameObject[] inventorySlotObject = new GameObject[10];
@@ -15,6 +17,7 @@ public class PlayerInventory : MonoBehaviour
     {
         inventoryFull = false;
     }
+
 
     public void AddToInventory(Item item)
     {
@@ -59,9 +62,14 @@ public class PlayerInventory : MonoBehaviour
         print(inventory.Count);
         for (int i = 0; i < inventory.Count; i++)
         {
-            print("{ PINV } Update Inventory");
-            inventorySlotObject[i].GetComponent<Image>().sprite = inventory[i].GetSprite();
+            inventorySlotObject[i].GetComponent<HotbarSlot>().RecieveItem(inventory[i]);
         }
+    }
+
+    public void RemoveItem(int itemSlot)
+    {
+        inventory[itemSlot] = empty;
+        UpdateInventory();
     }
 
 }

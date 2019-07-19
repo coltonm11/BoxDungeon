@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class BoxInventory : Inventory
 {
 
-    public GameObject lootModalObject;
     public Item collapsedBox;
     public GameObject ItemObjectPrefab;
     LootModal lootModal;
@@ -16,9 +15,9 @@ public class BoxInventory : Inventory
     int currentItemNumber;
 
 
-    private void Start()
+    private void Awake()
     {
-        lootModal = lootModalObject.GetComponent<LootModal>();
+        lootModal = GameObject.FindGameObjectWithTag("LootModal").GetComponent<LootModal>();
         currentItemNumber = 0;
     }
 
