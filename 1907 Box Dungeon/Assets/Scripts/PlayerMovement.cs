@@ -15,19 +15,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        //rb.AddForce(movement * speed);
-        transform.position = transform.position * movement;
-        */
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        this.transform.position = this.transform.position + movement * speed;
     }
 
     private void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        this.transform.position = this.transform.position + movement * speed;
+
     }
 
 
