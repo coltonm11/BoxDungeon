@@ -13,9 +13,10 @@ public class GroundPlacementController : MonoBehaviour
         placed = true;
     }
 
-    public void PlaceContainer(GameObject c)
+    public void PlaceContainerMode(GameObject c)
     {
         container = Instantiate(c);
+        container.GetComponent<BoxInventory>().EnterPlacementMode();
         placed = false;
     }
 
@@ -26,7 +27,8 @@ public class GroundPlacementController : MonoBehaviour
             container.transform.position = GetNearestPointToGrid();
             if (Input.GetMouseButtonDown(0))
             {
-                placed = true;
+                if (!container.GetComponent<BoxInventory>().invalidPlacementLocation)
+                    placed = true;
             }
         }
     }
@@ -50,6 +52,7 @@ public class GroundPlacementController : MonoBehaviour
 
         return result;
     }
+
 
 
 

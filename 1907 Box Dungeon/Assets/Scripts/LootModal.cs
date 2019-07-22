@@ -24,8 +24,9 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void Open()
+    public void Open(BoxInventory inv)
     {
+        activeContainer = inv;
         menuObject.SetActive(true);
         MoveModal();
 
@@ -44,12 +45,18 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
         this.transform.position = Camera.main.WorldToScreenPoint(containerPos);
     }
 
-    public void ShowItem(BoxInventory inv, Item item)
+    public void ShowItem(Item item)
     {
-        print("LootModal - ShowItem: " + item);
-        activeContainer = inv;
-        currentItem = item;
-        spriteObject.GetComponent<Image>().sprite = item.GetSprite();
+        if (item != null)
+        {
+            currentItem = item;
+            spriteObject.GetComponent<Image>().sprite = item.GetSprite();
+        }
+        if (item = null)
+        {
+
+        }
+
     }
 
     private void AddToInventory()

@@ -46,7 +46,7 @@ public class HotbarSlot : MonoBehaviour, IPointerClickHandler
         switch (type)
         {
             case ItemType.CONTAINER:
-                placementController.PlaceContainer(currentItem.containerObjectPrefab);
+                placementController.PlaceContainerMode(currentItem.containerObjectPrefab);
                 playerInventory.RemoveItem(slotNumber);
                 break;
             case ItemType.JUNK:

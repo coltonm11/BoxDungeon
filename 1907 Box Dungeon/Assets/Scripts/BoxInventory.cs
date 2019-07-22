@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BoxInventory : Inventory
 {
 
     public Item collapsedBox;
     public GameObject ItemObjectPrefab;
     LootModal lootModal;
+    bool placementModeActive;
+    public bool invalidPlacementLocation;
+
 
     public List<Item> boxInventory = new List<Item>();
 
@@ -20,16 +24,42 @@ public class BoxInventory : Inventory
         currentItemNumber = 0;
     }
 
+
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (placementModeActive)
         {
-            if (boxInventory.Count > 0)
+            if (Input.GetMouseButtonDown(0) && !invalidPlacementLocation)
             {
-                CycleInventory();
-                lootModal.Open();
+                LeavePlacementMode();
             }
         }
+
+        if (!placementModeActive)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                lootModal.Open(this);
+                if (boxInventory.Count > 0)
+                {
+                    CycleInventory();
+                }
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        print("trigger stay");
+        this.transform.GetComponent<SpriteRenderer>().color = Color.red;
+        invalidPlacementLocation = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        this.transform.GetComponent<SpriteRenderer>().color = Color.green;
+        invalidPlacementLocation = false;
+        print("trigger exit");
     }
 
 
@@ -39,7 +69,7 @@ public class BoxInventory : Inventory
             currentItemNumber = 0;
 
         print("BoxInv CycleInventory: " + currentItemNumber);
-        lootModal.ShowItem(this, boxInventory[currentItemNumber]);
+        lootModal.ShowItem(boxInventory[currentItemNumber]);
         currentItemNumber += 1;     
     }
 
@@ -61,5 +91,20 @@ public class BoxInventory : Inventory
         newObj.GetComponent<ItemObject>().SetUpObject(collapsedBox);
         Destroy(this.transform.gameObject);
     }
+
+    public void EnterPlacementMode()
+    {
+        placementModeActive = true;
+        this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        this.GetComponent<SpriteRenderer>().color = Color.green;
+    }
+
+    private void LeavePlacementMode()
+    {
+        placementModeActive = false;
+        this.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        this.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
 
 }
