@@ -36,9 +36,12 @@ public class BoxInventory : Inventory
     {
         if (placementModeActive)
         {
-            if (Input.GetMouseButtonDown(0) && !invalidPlacementLocation)
+            if (!invalidPlacementLocation)
             {
-                LeavePlacementMode();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    LeavePlacementMode();
+                }
             }
         }
 
@@ -50,13 +53,9 @@ public class BoxInventory : Inventory
                 {
                     case ContainerType.CARDBOARD:
                         lootModal.Open(this);
-                        if (boxInventory.Count > 0)
-                        {
-                            //CycleInventory();
-                            //lootModal.ShowItem();
-                        }
                         break;
                     case ContainerType.SHELVES:
+                        lootModal.Open(this);
                         break;
                 }
             }

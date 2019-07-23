@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6212093790478114413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.51, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4427568, y: 1.4427568, z: 1.4427568}
   m_Children:
   - {fileID: 6212093791429527143}
@@ -73,11 +73,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dabe146938b0a4ab90cd46af0d5ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxInventory:
+  - {fileID: 11400000, guid: 05e644e6a9f13254892260184546f62c, type: 2}
+  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
+  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
+  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
+  - {fileID: 11400000, guid: 666863a759958f642867a097f930c9fb, type: 2}
+  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
+  type: 1
+  slotsShown: 6
+  slotsPerRow: 2
   collapsedBox: {fileID: 11400000, guid: 666863a759958f642867a097f930c9fb, type: 2}
   ItemObjectPrefab: {fileID: 4544932778066419021, guid: 86352f1833b3bff449df9298917eeb1d,
     type: 3}
   invalidPlacementLocation: 0
-  boxInventory: []
 --- !u!212 &6212093790478114409
 SpriteRenderer:
   m_ObjectHideFlags: 0

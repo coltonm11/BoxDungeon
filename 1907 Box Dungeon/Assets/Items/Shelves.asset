@@ -17,4 +17,5 @@ MonoBehaviour:
   quantity: 1
   sprite: {fileID: 21300000, guid: 295efa74c1678aa46912cf9f48423780, type: 3}
   type: 1
-  containerObjectPrefab: {fileID: 0}
+  containerObjectPrefab: {fileID: 6212093790478114413, guid: 44a537b0626dff941a044083ff06134d,
+    type: 3}

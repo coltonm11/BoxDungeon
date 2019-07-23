@@ -12,6 +12,7 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
     List<Item> containerInventory;
     Item currentItem;
     int currentItemNumber;
+    bool isOpen;
 
     // -------------------------------------------------------------
 
@@ -19,6 +20,7 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
     public GameObject spriteObject;
     public GameObject menuObject;
     public GameObject breakDownButtonObject;
+    public GameObject textPageObject;
     public GameObject[] slots;
 
     // -------------------------------------------------------------
@@ -41,6 +43,9 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
 
     public void Open(BoxInventory inv)
     {
+        if (inv != activeContainer)
+            Close();
+
         activeContainer = inv;
         type = activeContainer.type;
         containerInventory = activeContainer.boxInventory;
@@ -49,10 +54,13 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
         ResizeModal();
         ShowItem();
         //
+        isOpen = true;
         menuObject.SetActive(true);
         //
         if (containerInventory.Count <= 0)
             MakeCollapsable();
+        if (containerInventory.Count > 0)
+            breakDownButtonObject.SetActive(false);
     }
 
     private void MoveModal()
@@ -68,27 +76,23 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
             s.SetActive(false);
         }
 
+        slots[0].SetActive(true);
+
         for (int i = 0; i < activeContainer.slotsShown; i++)
         {
             slots[i].SetActive(true);
         }
 
         RectTransform bg = menuObject.GetComponent<RectTransform>();
-        float modalWidth = 100f * activeContainer.slotsPerRow;
-        float modalHeight = 100f + (100 * Mathf.Ceil(activeContainer.slotsShown / 3));
+        float modalWidth = 110f * activeContainer.slotsPerRow;
+        float modalHeight = 100f + (110 * Mathf.Ceil(activeContainer.slotsShown / activeContainer.slotsPerRow));
         if (modalWidth < 250)
             modalWidth = 250;
+       if (modalHeight < 220)
+            modalHeight = 220;
         bg.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, modalWidth);
         bg.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, modalHeight);
     }
-
-    public void Close()
-    {
-        menuObject.SetActive(false);
-        currentItemNumber = 0;
-    }
-
-    // -------------------------------------------------------------
 
     public void ShowItem()
     {
@@ -96,14 +100,22 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
         {
             case ContainerType.CARDBOARD:
 
+                // Cycle int
                 if (currentItemNumber >= containerInventory.Count)
                     currentItemNumber = 0;
 
                 Image image = slots[0].transform.GetChild(0).GetComponent<Image>();
-                Sprite currentSprite = containerInventory[currentItemNumber].GetSprite();
+                Sprite currentSprite = null;
+
+                // if not empty
+                if (containerInventory.Count > 0)
+                    currentSprite = containerInventory[currentItemNumber].GetSprite();
+
                 image.sprite = currentSprite;
 
                 currentItemNumber += 1;
+
+                UpdateText();
 
                 break;
 
@@ -113,6 +125,26 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
         }
 
     }
+
+    private void UpdateText()
+    {
+        Text text = textPageObject.GetComponent<Text>();
+        int firstNumber = currentItemNumber;
+        string myString = firstNumber.ToString() + " of " + containerInventory.Count.ToString();
+
+        if (containerInventory.Count <= 0)
+            myString = "empty";
+
+        text.text = myString;
+    }
+    public void Close()
+    {
+        menuObject.SetActive(false);
+        currentItemNumber = 0;
+        isOpen = false;
+    }
+
+    // -------------------------------------------------------------
 
     public void AddToInventory()
     {
@@ -124,7 +156,7 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
 
             if (containerInventory.Count < 1)
                 MakeCollapsable();
-
+            print("current item number: " + currentItemNumber);
             ShowItem();
         }
     }

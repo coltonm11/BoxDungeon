@@ -73,11 +73,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dabe146938b0a4ab90cd46af0d5ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootModalObject: {fileID: 0}
+  boxInventory: []
+  type: 0
+  slotsShown: 1
+  slotsPerRow: 1
   collapsedBox: {fileID: 11400000, guid: 666863a759958f642867a097f930c9fb, type: 2}
   ItemObjectPrefab: {fileID: 4544932778066419021, guid: 86352f1833b3bff449df9298917eeb1d,
     type: 3}
-  boxInventory: []
+  invalidPlacementLocation: 0
 --- !u!212 &5869343884951164231
 SpriteRenderer:
   m_ObjectHideFlags: 0
