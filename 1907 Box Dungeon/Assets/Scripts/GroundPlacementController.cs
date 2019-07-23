@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class GroundPlacementController : MonoBehaviour
 {
+
     bool placed;
     GameObject container;
     public float gridSize;
 
+    // -------------------------------------------------------------
+
     private void Start()
     {
         placed = true;
-    }
-
-    public void PlaceContainerMode(GameObject c)
-    {
-        container = Instantiate(c);
-        container.GetComponent<BoxInventory>().EnterPlacementMode();
-        placed = false;
     }
 
     private void Update()
@@ -31,6 +27,15 @@ public class GroundPlacementController : MonoBehaviour
                     placed = true;
             }
         }
+    }
+
+    // -------------------------------------------------------------
+
+    public void PlaceContainerMode(GameObject c)
+    {
+        container = Instantiate(c);
+        container.GetComponent<BoxInventory>().EnterPlacementMode();
+        placed = false;
     }
 
     public Vector3 GetNearestPointToGrid()

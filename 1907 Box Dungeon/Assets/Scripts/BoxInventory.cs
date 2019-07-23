@@ -2,28 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ContainerType { CARDBOARD, SHELVES }
 
 public class BoxInventory : Inventory
 {
 
+    public List<Item> boxInventory = new List<Item>();
+    public ContainerType type;
+    public float slotsShown;
+    public float slotsPerRow;
+
+    // -------------------------------------------------------------
+
     public Item collapsedBox;
     public GameObject ItemObjectPrefab;
+
+    // -------------------------------------------------------------
+
     LootModal lootModal;
     bool placementModeActive;
     public bool invalidPlacementLocation;
-
-
-    public List<Item> boxInventory = new List<Item>();
-
     int currentItemNumber;
 
+    // -------------------------------------------------------------
 
     private void Awake()
     {
         lootModal = GameObject.FindGameObjectWithTag("LootModal").GetComponent<LootModal>();
         currentItemNumber = 0;
     }
-
 
     private void OnMouseOver()
     {
@@ -39,10 +46,18 @@ public class BoxInventory : Inventory
         {
             if (Input.GetMouseButtonDown(1))
             {
-                lootModal.Open(this);
-                if (boxInventory.Count > 0)
+                switch (type)
                 {
-                    CycleInventory();
+                    case ContainerType.CARDBOARD:
+                        lootModal.Open(this);
+                        if (boxInventory.Count > 0)
+                        {
+                            //CycleInventory();
+                            //lootModal.ShowItem();
+                        }
+                        break;
+                    case ContainerType.SHELVES:
+                        break;
                 }
             }
         }
@@ -62,27 +77,11 @@ public class BoxInventory : Inventory
         print("trigger exit");
     }
 
+    // -------------------------------------------------------------
 
-    private void CycleInventory()
+    public void RemoveItem(int itemNumber)
     {
-        if (currentItemNumber >= boxInventory.Count)
-            currentItemNumber = 0;
-
-        print("BoxInv CycleInventory: " + currentItemNumber);
-        lootModal.ShowItem(boxInventory[currentItemNumber]);
-        currentItemNumber += 1;     
-    }
-
-    public void RemoveItem()
-    {
-        print("BoxInv RemoveItem");
-        currentItemNumber -= 1;
-        boxInventory.RemoveAt(currentItemNumber);
-
-        if (boxInventory.Count < 1)
-            lootModal.MakeCollapsable();
-
-        CycleInventory();
+        boxInventory.RemoveAt(itemNumber);
     }
 
     public void CollapseBox()
@@ -92,18 +91,20 @@ public class BoxInventory : Inventory
         Destroy(this.transform.gameObject);
     }
 
+    // -------------------------------------------------------------
+
     public void EnterPlacementMode()
     {
         placementModeActive = true;
         this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        this.GetComponent<SpriteRenderer>().color = Color.green;
+        this.transform.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     private void LeavePlacementMode()
     {
         placementModeActive = false;
         this.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        this.GetComponent<SpriteRenderer>().color = Color.white;
+        this.transform.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
 

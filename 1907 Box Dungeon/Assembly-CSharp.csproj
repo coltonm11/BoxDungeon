@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Items\CardboardBoxItem.cs" />
+    <Compile Include="Assets\LootSlot.cs" />
     <Compile Include="Assets\Scripts\BoxInventory.cs" />
     <Compile Include="Assets\Scripts\GroundPlacementController.cs" />
     <Compile Include="Assets\Scripts\HotbarSlot.cs" />
