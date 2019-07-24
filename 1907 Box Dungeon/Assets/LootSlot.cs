@@ -9,6 +9,8 @@ public class LootSlot : MonoBehaviour, IPointerClickHandler
 
     LootModal lootModal;
 
+    public int slotNumber;
+
     // -------------------------------------------------------------
 
     private void Awake()
@@ -20,7 +22,7 @@ public class LootSlot : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            lootModal.AddToInventory();
+            lootModal.AddToInventory(slotNumber);
         }
     }
 

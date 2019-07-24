@@ -35,7 +35,7 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (activeContainer.boxInventory.Count > 0)
-                AddToInventory();
+                AddToInventory(1);
         }
     }
 
@@ -96,16 +96,19 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
 
     public void ShowItem()
     {
+        Image image = null;
+        Sprite currentSprite = null;
         switch (type)
         {
+       
+
             case ContainerType.CARDBOARD:
 
                 // Cycle int
                 if (currentItemNumber >= containerInventory.Count)
                     currentItemNumber = 0;
 
-                Image image = slots[0].transform.GetChild(0).GetComponent<Image>();
-                Sprite currentSprite = null;
+                image = slots[0].transform.GetChild(0).GetComponent<Image>();
 
                 // if not empty
                 if (containerInventory.Count > 0)
@@ -120,6 +123,17 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
                 break;
 
             case ContainerType.SHELVES:
+                print("started this at least");
+                for (int i = 0; i < activeContainer.slotsShown - 1; i++)
+                {
+                    print("for loop");
+                    image = slots[i].transform.GetChild(0).GetComponent<Image>();
+                    if (containerInventory[i] != null)
+                        currentSprite = containerInventory[i].GetSprite();
+                    if (containerInventory[i] == null)
+                        currentSprite = null;
+                    image.sprite = currentSprite;
+                }
 
                 break;
         }
@@ -146,13 +160,23 @@ public class LootModal : MonoBehaviour, IPointerClickHandler
 
     // -------------------------------------------------------------
 
-    public void AddToInventory()
+    public void AddToInventory(int slotNumber)
     {
         if (!playerInventory.inventoryFull)
         {
-            currentItemNumber -= 1;
-            playerInventory.AddToInventory(containerInventory[currentItemNumber]);
-            activeContainer.RemoveItem(currentItemNumber);
+            switch (type)
+            {
+                case ContainerType.CARDBOARD:
+                    currentItemNumber -= 1;
+                    playerInventory.AddToInventory(containerInventory[currentItemNumber]);
+                    activeContainer.RemoveItem(currentItemNumber);
+                    break;
+
+                case ContainerType.SHELVES:
+                    playerInventory.AddToInventory(containerInventory[slotNumber]);
+                    activeContainer.RemoveItem(slotNumber);
+                    break;
+            }
 
             if (containerInventory.Count < 1)
                 MakeCollapsable();

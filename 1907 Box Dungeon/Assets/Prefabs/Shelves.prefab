@@ -76,10 +76,10 @@ MonoBehaviour:
   boxInventory:
   - {fileID: 11400000, guid: 05e644e6a9f13254892260184546f62c, type: 2}
   - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
-  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
-  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
-  - {fileID: 11400000, guid: 666863a759958f642867a097f930c9fb, type: 2}
-  - {fileID: 11400000, guid: 4df44768ea8a80040ae525787939dc6a, type: 2}
+  - {fileID: 11400000, guid: 05e644e6a9f13254892260184546f62c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   type: 1
   slotsShown: 6
   slotsPerRow: 2
